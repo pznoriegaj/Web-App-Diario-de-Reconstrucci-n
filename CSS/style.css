@@ -1,7 +1,7 @@
 :root {
-    --color-principal: #7f77dd;
-    --color-fondo: #fafafa;
-    --color-texto: #2c2c2a;
+    --color-principal: #233d4d;
+    --color-fondo: #fe7f2d;
+    --color-texto: #e8d8c9;
     --color-blanco: #ffffff;
 }
 
@@ -42,5 +42,5 @@ button{
 textarea { /*se agrega textarea para poder escribir en el, se modifica el tamaño de la caja para mejor visualización en la pagina / app*/
     width: 100%; 
     height: 150px;
-    padding: 1rem;
+    padding: 1rem; /*Para hacer limpieza en el codigo solamenete se aplica localStorage.clear() en la consola del navegador, esto eliminara todas las entradas guardadas en el localStorage, ten cuidado al usarlo ya que no se podran recuperar las entradas eliminadas.*/
 }
