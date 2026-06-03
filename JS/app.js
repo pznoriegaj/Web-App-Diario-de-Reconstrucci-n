@@ -10,6 +10,7 @@ botonGuardar.addEventListener('click', () => {
     const parrafo = document.createElement('p'); //Crea un parrafo vacio 
     parrafo.textContent = texto; // agrega el texto del usuario 
     historial.appendChild(parrafo);
+     entradaTexto.value = ''; /* se agrega este string vacio para limpiar la entrada despues de guarar la entrada */
 });
 
 function cargarEntradas() {
