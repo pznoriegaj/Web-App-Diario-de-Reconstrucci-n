@@ -1,7 +1,7 @@
 :root {
     --color-principal: #233d4d;
-    --color-fondo: #fe7f2d;
-    --color-texto: #e8d8c9;
+    --color-fondo: #fe7f2d;/*se cambia el color de fondo a un tono mas calido y agradable para la vista, se puede cambiar a cualquier otro color sin necesidad de modificar el codigo, solo cambiando el valor de la variable*/
+    --color-texto: #13110f;
     --color-blanco: #ffffff;
 }
 
