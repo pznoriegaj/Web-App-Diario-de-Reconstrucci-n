@@ -1,6 +1,6 @@
 :root {
-    --color-principal: #233d4d;
-    --color-fondo: #fe7f2d;/*se cambia el color de fondo a un tono mas calido y agradable para la vista, se puede cambiar a cualquier otro color sin necesidad de modificar el codigo, solo cambiando el valor de la variable*/
+    --color-principal: #05020c;
+    --color-fondo: #15565B;/*se cambia el color de fondo a un tono mas calido y agradable para la vista, se puede cambiar a cualquier otro color sin necesidad de modificar el codigo, solo cambiando el valor de la variable*/
     --color-texto: #13110f;
     --color-blanco: #ffffff;
 }
@@ -43,4 +43,13 @@ textarea { /*se agrega textarea para poder escribir en el, se modifica el tamañ
     width: 100%; 
     height: 150px;
     padding: 1rem; /*Para hacer limpieza en el codigo solamenete se aplica localStorage.clear() en la consola del navegador, esto eliminara todas las entradas guardadas en el localStorage, ten cuidado al usarlo ya que no se podran recuperar las entradas eliminadas.*/
+}
+
+.btn-eliminar {
+    background-color: #4E8EA2;
+    color: var(--color-blanco);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem; /*se agrega un margen para separar el boton de eliminar de las entradas del historial, esto mejora la apariencia y usabilidad de la pagina / app*/
+    border: none;
+    border-radius: 8px; /*se agrega un borde redondeado al boton de eliminar para darle un mejor diseño y apariencia, esto hace que el boton se vea mas amigable y moderno*/
 }

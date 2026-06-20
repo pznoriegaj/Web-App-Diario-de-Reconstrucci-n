@@ -29,6 +29,7 @@ function cargarEntradas() {
         fechaElemento.textContent = fecha.toLocaleString("es-MX", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
         const botonEliminar = document.createElement('button'); // se crea un boton para eliminar las entradas del historial
         botonEliminar.textContent = 'Eliminar';
+        botonEliminar.classList.add('btn-eliminar'); // se agrega una clase al boton para darle estilo
         botonEliminar.addEventListener('click',() => { // se agrega un evento click al boton eliminar
             entradas.splice(indice, 1); // se elimina la entrada del arreglo de entradas
             localStorage.setItem('entradas', JSON.stringify(entradas)); // se actualiza el local storage con la nueva lista de entradas
