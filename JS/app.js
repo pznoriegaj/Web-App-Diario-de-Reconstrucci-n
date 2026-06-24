@@ -21,12 +21,28 @@ botonGuardar.addEventListener('click', () => {
 
 function cargarEntradas() {
     const entradas = JSON.parse(localStorage.getItem('entradas')) || [];
+     const grupos = {}
     entradas.forEach(function(entrada, indice) {
-        const parrafo = document.createElement('p');
+        const fecha = new Date();
+     const clave = fecha.toLocaleDateString("es-MX",  {month: "long", year: "numeric"}); // se obtiene la fecha en formato de cadena para agrupar las entradas por fecha
+        if (!grupos[clave]) { // se verifica si el grupo ya existe
+            grupos[clave] = []; // si no existe se crea un arreglo vacio para el grupo
+        }
+        grupos[clave].push(entrada); // se agrega la entrada al grupo correspondiente
+        
+    });
+    Object.keys(grupos).forEach(function(mes) {
+        const titulo = document.createElement("h2");
+        titulo.textContent = mes;
+        historial.appendChild(titulo);
+
+        grupos[mes].forEach(function(entrada) {
+         const parrafo = document.createElement('p');
         parrafo.textContent = entrada.texto;
         const fechaElemento = document.createElement('small');
         const fecha = new Date(entrada.fecha);
-        fechaElemento.textContent = fecha.toLocaleString("es-MX", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
+        const clave = fecha.toLocaleDateString("es-MX",  {month: "long", year: "numeric"}); // se obtiene la fecha en formato de cadena para agrupar las entradas por fecha
+         fechaElemento.textContent = fecha.toLocaleString("es-MX", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
         const botonEliminar = document.createElement('button'); // se crea un boton para eliminar las entradas del historial
         botonEliminar.textContent = 'Eliminar';
         botonEliminar.classList.add('btn-eliminar'); // se agrega una clase al boton para darle estilo
@@ -39,6 +55,7 @@ function cargarEntradas() {
         historial.appendChild(parrafo);
         historial.appendChild(fechaElemento);
         historial.appendChild(botonEliminar);// se agrega boton al historial para eliminar la entrada
+        });
     });
 }
 cargarEntradas();
