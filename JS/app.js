@@ -1,6 +1,12 @@
 const botonGuardar = document.getElementById('btn-guardar');
 const entradaTexto = document.getElementById('entrada-texto');
 const historial = document.getElementById('historial');
+const seccionDiario = document.getElementById('seccion-diario');
+const seccionDashboard = document.getElementById('seccion-dashboard');
+const seccionRetos = document.getElementById('seccion-retos');
+const btnDiario = document.getElementById('btn-diario');
+const btnDashboard = document.getElementById('btn-dashboard');
+const btnRetos = document.getElementById('btn-retos');
 botonGuardar.addEventListener('click', () => {
     const texto = entradaTexto.value;
     const fecha = new Date();
@@ -17,6 +23,25 @@ botonGuardar.addEventListener('click', () => {
         historial.innerHTML = ''; // se limpia el historial para volver a cargar las entradas actualizadas
         cargarEntradas(); // se vuelve a cargar las entradas para reflejar los cambios
     }
+});
+
+    function mostrarSeccion(seccion) {
+        seccionDiario.style.display = 'none';
+        seccionDashboard.style.display = 'none';
+        seccionRetos.style.display = 'none';
+        seccion.style.display = 'block';
+    }
+
+btnDiario.addEventListener('click', () => {
+    mostrarSeccion(seccionDiario);
+});
+
+btnDashboard.addEventListener('click', () => {
+    mostrarSeccion(seccionDashboard);
+});
+
+btnRetos.addEventListener('click', () => {
+    mostrarSeccion(seccionRetos);
 });
 
 function cargarEntradas() {
