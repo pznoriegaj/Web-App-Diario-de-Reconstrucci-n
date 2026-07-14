@@ -53,3 +53,7 @@ textarea { /*se agrega textarea para poder escribir en el, se modifica el tamañ
     border: none;
     border-radius: 8px; /*se agrega un borde redondeado al boton de eliminar para darle un mejor diseño y apariencia, esto hace que el boton se vea mas amigable y moderno*/
 }
+
+.oculto {
+    display: none;
+}
