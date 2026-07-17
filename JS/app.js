@@ -82,6 +82,35 @@ function cargarEntradas() {
         historial.appendChild(botonEliminar);// se agrega boton al historial para eliminar la entrada
         });
     });
+    const publicacionesEjemplo =  [
+        {
+            usuario: 'jesus_noriega',
+            fecha: '16/07/2026',
+            tipo: 'texto',
+            contenido: 'Hola esta es una prueba generica'
+        },
+        {
+            usuario: 'jesus_noriega',
+            fecha: '16/07/2026',
+            tipo: 'foto',
+            contenido: 'https://images.unsplash.com/photo-1682685796530-1e3f5c7b8d6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+        },
+        {
+            usuario: 'jesus_noriega',
+            fecha: '16/07/2026',
+            tipo: 'video',
+            contenido: 'https://www.youtube.com/watch?v=5qap5aO4i9A'
+        }
+    ];
+
+    function cargarPublicaciones() {
+        publicacionesEjemplo.forEach(function(publicacion) {
+            const li = document.createElement('li');
+            const usuario = document.createElement('strong');
+            usuario.textContent = publicacion.usuario;
+            // Lógica para cargar cada publicación
+        });
+    }
 }
 cargarEntradas();
 
