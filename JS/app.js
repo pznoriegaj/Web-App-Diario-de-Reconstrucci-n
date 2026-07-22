@@ -108,9 +108,27 @@ function cargarEntradas() {
             const li = document.createElement('li');
             const usuario = document.createElement('strong');
             usuario.textContent = publicacion.usuario;
+            li.appendChild(usuario);
             // Lógica para cargar cada publicación
-        });
-    }
+            const fecha = document.createElement('time');
+            fecha.textContent = publicacion.fecha;
+            li.appendChild(fecha);
+        if (publicacion.tipo === 'texto') {
+            const contenido = document.createElement('p');
+            contenido.textContent = publicacion.contenido;
+            li.appendChild(contenido);
+        } else if (publicacion.tipo === 'foto') { 
+            const imagen = document.createElement('img');
+            imagen.src = publicacion.contenido;
+            li.appendChild(imagen);
+        } else if (publicacion.tipo === 'video') {
+            const video = document.createElement('iframe');
+            video.src = publicacion.contenido;
+            li.appendChild(video);
+        }
+
+        document.getElementById('retos-didacticos').appendChild(li);
+     });
 }
 cargarEntradas();
 
