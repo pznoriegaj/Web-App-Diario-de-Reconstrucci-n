@@ -7,81 +7,120 @@ const seccionRetos = document.getElementById('seccion-retos');
 const btnDiario = document.getElementById('btn-diario');
 const btnDashboard = document.getElementById('btn-dashboard');
 const btnRetos = document.getElementById('btn-retos');
-botonGuardar.addEventListener('click', () => {
-    const texto = entradaTexto.value;
-    const fecha = new Date();
-    console.log(texto);
+const contenedorRetos = document.getElementById('retos-didacticos');
+
+function guardarEntrada() {
+    if (!entradaTexto || !botonGuardar) return;
+
+    const texto = entradaTexto.value.trim();
+    if (!texto) return;
+
     const listaEntradas = JSON.parse(localStorage.getItem('entradas')) || [];
-    listaEntradas.push({ texto: texto, fecha: fecha });/* se agrega un objeto con el texto y la fecha a la lista de entradas */
+    listaEntradas.push({
+        id: Date.now() + Math.random(),
+        texto: texto,
+        fecha: new Date().toISOString()
+    });
+
     localStorage.setItem('entradas', JSON.stringify(listaEntradas));
-     entradaTexto.value = ''; /* se agrega este string vacio para limpiar la entrada despues de guarar la entrada */
-});
-  entradaTexto.addEventListener('keydown', (evento) => {
-    if (evento.key === 'Enter' && !evento.shiftKey) { // se agrega un evento para que al presionar enter se guarde la entrada
-        evento.preventDefault(); // se previene el comportamiento por defecto de la tecla enter
-        botonGuardar.click(); // se simula un click en el boton guardar para guardar la entrada
-        historial.innerHTML = ''; // se limpia el historial para volver a cargar las entradas actualizadas
-        cargarEntradas(); // se vuelve a cargar las entradas para reflejar los cambios
-    }
-});
+    entradaTexto.value = '';
+    historial.innerHTML = '';
+    cargarEntradas();
+}
 
-    function mostrarSeccion(seccion) {
-        seccionDiario.style.display = 'none';
-        seccionDashboard.style.display = 'none';
-        seccionRetos.style.display = 'none';
-        seccion.style.display = 'block';
-    }
+if (botonGuardar) {
+    botonGuardar.addEventListener('click', guardarEntrada);
+}
 
-btnDiario.addEventListener('click', () => {
-    mostrarSeccion(seccionDiario);
-});
+if (entradaTexto) {
+    entradaTexto.addEventListener('keydown', (evento) => {
+        if (evento.key === 'Enter' && !evento.shiftKey) {
+            evento.preventDefault();
+            guardarEntrada();
+        }
+    });
+}
 
-btnDashboard.addEventListener('click', () => {
-    mostrarSeccion(seccionDashboard);
-});
+function mostrarSeccion(seccion) {
+    if (!seccionDiario || !seccionDashboard || !seccionRetos || !seccion) return;
 
-btnRetos.addEventListener('click', () => {
-    mostrarSeccion(seccionRetos);
-});
+    seccionDiario.style.display = 'none';
+    seccionDashboard.style.display = 'none';
+    seccionRetos.style.display = 'none';
+    seccion.style.display = 'block';
+}
+
+if (btnDiario) {
+    btnDiario.addEventListener('click', () => {
+        mostrarSeccion(seccionDiario);
+    });
+}
+
+if (btnDashboard) {
+    btnDashboard.addEventListener('click', () => {
+        mostrarSeccion(seccionDashboard);
+    });
+}
+
+if (btnRetos) {
+    btnRetos.addEventListener('click', () => {
+        mostrarSeccion(seccionRetos);
+    });
+}
 
 function cargarEntradas() {
+    if (!historial) return;
+
+    historial.innerHTML = '';
     const entradas = JSON.parse(localStorage.getItem('entradas')) || [];
-     const grupos = {}
-    entradas.forEach(function(entrada, indice) {
-        const fecha = new Date();
-     const clave = fecha.toLocaleDateString("es-MX",  {month: "long", year: "numeric"}); // se obtiene la fecha en formato de cadena para agrupar las entradas por fecha
-        if (!grupos[clave]) { // se verifica si el grupo ya existe
-            grupos[clave] = []; // si no existe se crea un arreglo vacio para el grupo
+    const grupos = {};
+
+    entradas.forEach(function(entrada) {
+        const fecha = new Date(entrada.fecha);
+        const clave = fecha.toLocaleDateString('es-MX', { month: 'long', year: 'numeric' });
+
+        if (!grupos[clave]) {
+            grupos[clave] = [];
         }
-        grupos[clave].push(entrada); // se agrega la entrada al grupo correspondiente
-        
+
+        grupos[clave].push(entrada);
     });
+
     Object.keys(grupos).forEach(function(mes) {
-        const titulo = document.createElement("h2");
+        const titulo = document.createElement('h2');
         titulo.textContent = mes;
         historial.appendChild(titulo);
 
         grupos[mes].forEach(function(entrada) {
-         const parrafo = document.createElement('p');
-        parrafo.textContent = entrada.texto;
-        const fechaElemento = document.createElement('small');
-        const fecha = new Date(entrada.fecha);
-        const clave = fecha.toLocaleDateString("es-MX",  {month: "long", year: "numeric"}); // se obtiene la fecha en formato de cadena para agrupar las entradas por fecha
-         fechaElemento.textContent = fecha.toLocaleString("es-MX", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
-        const botonEliminar = document.createElement('button'); // se crea un boton para eliminar las entradas del historial
-        botonEliminar.textContent = 'Eliminar';
-        botonEliminar.classList.add('btn-eliminar'); // se agrega una clase al boton para darle estilo
-        botonEliminar.addEventListener('click',() => { // se agrega un evento click al boton eliminar
-            entradas.splice(indice, 1); // se elimina la entrada del arreglo de entradas
-            localStorage.setItem('entradas', JSON.stringify(entradas)); // se actualiza el local storage con la nueva lista de entradas
-            historial.innerHTML = ''; // se limpia el historial para volver a cargar las entradas actualizadas
-            cargarEntradas(); // se vuelve a cargar las entradas para reflejar los cambios
-        });
-        historial.appendChild(parrafo);
-        historial.appendChild(fechaElemento);
-        historial.appendChild(botonEliminar);// se agrega boton al historial para eliminar la entrada
+            const parrafo = document.createElement('p');
+            parrafo.textContent = entrada.texto;
+
+            const fechaElemento = document.createElement('small');
+            const fecha = new Date(entrada.fecha);
+            fechaElemento.textContent = fecha.toLocaleString('es-MX', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const botonEliminar = document.createElement('button');
+            botonEliminar.textContent = 'Eliminar';
+            botonEliminar.classList.add('btn-eliminar');
+            botonEliminar.addEventListener('click', () => {
+                const entradasActualizadas = JSON.parse(localStorage.getItem('entradas')) || [];
+                const nuevasEntradas = entradasActualizadas.filter((item) => item.id !== entrada.id);
+                localStorage.setItem('entradas', JSON.stringify(nuevasEntradas));
+                historial.innerHTML = '';
+                cargarEntradas();
+            });
+
+            historial.appendChild(parrafo);
+            historial.appendChild(fechaElemento);
+            historial.appendChild(botonEliminar);
         });
     });
+}
     const publicacionesEjemplo =  [
         {
             usuario: 'jesus_noriega',
@@ -110,19 +149,19 @@ function cargarEntradas() {
             usuario.textContent = publicacion.usuario;
             li.appendChild(usuario);
             // Lógica para cargar cada publicación
-            const fecha = document.createElement('time');
+            const fecha = document.createElement('time'); /* se crea un elemento time para mostrar la fecha de la publicacion */
             fecha.textContent = publicacion.fecha;
             li.appendChild(fecha);
         if (publicacion.tipo === 'texto') {
-            const contenido = document.createElement('p');
+            const contenido = document.createElement('p'); /* se crea un elemento p para mostrar el contenido de la publicacion */  
             contenido.textContent = publicacion.contenido;
             li.appendChild(contenido);
         } else if (publicacion.tipo === 'foto') { 
-            const imagen = document.createElement('img');
+            const imagen = document.createElement('img'); /* se crea un elemento img para mostrar la imagen de la publicacion */
             imagen.src = publicacion.contenido;
             li.appendChild(imagen);
         } else if (publicacion.tipo === 'video') {
-            const video = document.createElement('iframe');
+            const video = document.createElement('iframe'); /* se crea un elemento iframe para mostrar el video de la publicacion */
             video.src = publicacion.contenido;
             li.appendChild(video);
         }
@@ -131,4 +170,3 @@ function cargarEntradas() {
      });
 }
 cargarEntradas();
-
