@@ -7,14 +7,10 @@ const seccionRetos = document.getElementById('seccion-retos');
 const btnDiario = document.getElementById('btn-diario');
 const btnDashboard = document.getElementById('btn-dashboard');
 const btnRetos = document.getElementById('btn-retos');
-const contenedorRetos = document.getElementById('retos-didacticos');
-
-function guardarEntrada() {
-    if (!entradaTexto || !botonGuardar) return;
-
-    const texto = entradaTexto.value.trim();
-    if (!texto) return;
-
+botonGuardar.addEventListener('click', () => {
+    const texto = entradaTexto.value;
+    const fecha = new Date();
+    console.log(texto);
     const listaEntradas = JSON.parse(localStorage.getItem('entradas')) || [];
     listaEntradas.push({
         id: Date.now() + Math.random(),
@@ -26,7 +22,7 @@ function guardarEntrada() {
     entradaTexto.value = '';
     historial.innerHTML = '';
     cargarEntradas();
-}
+});
 
 if (botonGuardar) {
     botonGuardar.addEventListener('click', guardarEntrada);
@@ -41,14 +37,12 @@ if (entradaTexto) {
     });
 }
 
-function mostrarSeccion(seccion) {
-    if (!seccionDiario || !seccionDashboard || !seccionRetos || !seccion) return;
-
-    seccionDiario.style.display = 'none';
-    seccionDashboard.style.display = 'none';
-    seccionRetos.style.display = 'none';
-    seccion.style.display = 'block';
-}
+    function mostrarSeccion(seccion) {
+        seccionDiario.style.display = 'none';
+        seccionDashboard.style.display = 'none';
+        seccionRetos.style.display = 'none';
+        seccion.style.display = 'block';
+    }
 
 if (btnDiario) {
     btnDiario.addEventListener('click', () => {
@@ -71,7 +65,7 @@ if (btnRetos) {
 function cargarEntradas() {
     if (!historial) return;
 
-    historial.innerHTML = '';
+    historial.innerHTML = ''; /*se agrega historial.innerHTML = '' para poder tener una lista actualizada y mas limpia, se debe de usar este método para limpiar el contenido antes de agregar los nuevos elementos */
     const entradas = JSON.parse(localStorage.getItem('entradas')) || [];
     const grupos = {};
 
@@ -91,7 +85,7 @@ function cargarEntradas() {
         titulo.textContent = mes;
         historial.appendChild(titulo);
 
-        grupos[mes].forEach(function(entrada) {
+    grupos[mes].forEach(function(entrada) {
             const parrafo = document.createElement('p');
             parrafo.textContent = entrada.texto;
 
