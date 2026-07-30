@@ -7,12 +7,12 @@ const seccionRetos = document.getElementById('seccion-retos');
 const btnDiario = document.getElementById('btn-diario');
 const btnDashboard = document.getElementById('btn-dashboard');
 const btnRetos = document.getElementById('btn-retos');
-botonGuardar.addEventListener('click', () => {
+ function guardarEntrada() {
     const texto = entradaTexto.value;
     const fecha = new Date();
     console.log(texto);
     const listaEntradas = JSON.parse(localStorage.getItem('entradas')) || [];
-    listaEntradas.push({
+    listaEntradas.push({ 
         id: Date.now() + Math.random(),
         texto: texto,
         fecha: new Date().toISOString()
@@ -22,7 +22,7 @@ botonGuardar.addEventListener('click', () => {
     entradaTexto.value = '';
     historial.innerHTML = '';
     cargarEntradas();
-});
+}
 
 if (botonGuardar) {
     botonGuardar.addEventListener('click', guardarEntrada);
