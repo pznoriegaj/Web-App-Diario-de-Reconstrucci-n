@@ -7,7 +7,13 @@ const seccionRetos = document.getElementById('seccion-retos');
 const btnDiario = document.getElementById('btn-diario');
 const btnDashboard = document.getElementById('btn-dashboard');
 const btnRetos = document.getElementById('btn-retos');
- function guardarEntrada() {
+const btnTexto = document.getElementById('btn-texto');
+const btnFoto = document.getElementById('btn-foto');
+const btnVideo = document.getElementById('btn-video');
+const textareaEntrada = document.getElementById('entrada-texto-reto');
+const inputFoto = document.getElementById('input-foto');
+const inputVideo = document.getElementById('input-video');
+function guardarEntrada() {
     const texto = entradaTexto.value;
     const fecha = new Date();
     console.log(texto);
@@ -20,7 +26,7 @@ const btnRetos = document.getElementById('btn-retos');
 
     localStorage.setItem('entradas', JSON.stringify(listaEntradas));
     entradaTexto.value = '';
-    historial.innerHTML = '';
+    historial.innerHTML = '';  
     cargarEntradas();
 }
 
@@ -163,4 +169,27 @@ function cargarEntradas() {
         document.getElementById('retos-didacticos').appendChild(li);
      });
 }
+if (btnTexto) {
+    btnTexto.addEventListener('click', (evento) => {
+        textareaEntrada.classList.remove('oculto');
+        inputFoto.classList.add('oculto');
+        inputVideo.classList.add('oculto');
+    }); 
+}
+if (btnFoto) {
+    btnFoto.addEventListener('click', (evento) => {
+        textareaEntrada.classList.add('oculto');
+        inputFoto.classList.remove('oculto');
+        inputVideo.classList.add('oculto');
+    });
+}
+if (btnVideo) {
+    btnVideo.addEventListener('click', (evento) => {
+        textareaEntrada.classList.add('oculto');
+        inputFoto.classList.add('oculto');
+        inputVideo.classList.remove('oculto');
+    }); 
+}
+
 cargarEntradas();
+cargarPublicaciones();
