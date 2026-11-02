@@ -13,6 +13,7 @@ const btnVideo = document.getElementById('btn-video');
 const textareaEntrada = document.getElementById('entrada-texto-reto');
 const inputFoto = document.getElementById('input-foto');
 const inputVideo = document.getElementById('input-video');
+let tipoEntrada = 'texto'; // Valor por defecto
 function guardarEntrada() {
     const texto = entradaTexto.value;
     const fecha = new Date();
@@ -174,6 +175,8 @@ if (btnTexto) {
         textareaEntrada.classList.remove('oculto');
         inputFoto.classList.add('oculto');
         inputVideo.classList.add('oculto');
+        tipoEntrada = 'texto'; // Cambiar el tipo de entrada a 'texto'
+        
     }); 
 }
 if (btnFoto) {
@@ -181,6 +184,7 @@ if (btnFoto) {
         textareaEntrada.classList.add('oculto');
         inputFoto.classList.remove('oculto');
         inputVideo.classList.add('oculto');
+        tipoEntrada = 'foto'; // Cambiar el tipo de entrada a 'foto'
     });
 }
 if (btnVideo) {
@@ -188,8 +192,13 @@ if (btnVideo) {
         textareaEntrada.classList.add('oculto');
         inputFoto.classList.add('oculto');
         inputVideo.classList.remove('oculto');
+        tipoEntrada = 'video'; // Cambiar el tipo de entrada a 'video'
     }); 
 }
-
+if(btnPublicar) {
+    btnPublicar.addEventListener('click', (evento) => {
+        evento.preventDefault();
+    });
+}
 cargarEntradas();
 cargarPublicaciones();
