@@ -10,6 +10,8 @@ const btnRetos = document.getElementById('btn-retos');
 const btnTexto = document.getElementById('btn-texto');
 const btnFoto = document.getElementById('btn-foto');
 const btnVideo = document.getElementById('btn-video');
+// Se obtiene el botón antes de registrar su evento para evitar un ReferenceError.
+const btnPublicar = document.getElementById('btn-publicar');
 const textareaEntrada = document.getElementById('entrada-texto-reto');
 const inputFoto = document.getElementById('input-foto');
 const inputVideo = document.getElementById('input-video');
@@ -200,5 +202,7 @@ if(btnPublicar) {
         evento.preventDefault();
     });
 }
+// Se muestra el diario al iniciar; el historial se consulta desde el Dashboard.
+mostrarSeccion(seccionDiario);
 cargarEntradas();
 cargarPublicaciones();
