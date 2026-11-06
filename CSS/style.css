@@ -57,3 +57,10 @@ textarea { /*se agrega textarea para poder escribir en el, se modifica el tamañ
 .oculto {
     display: none;
 }
+
+#retos-didacticos li {
+    background-color: #f0f0f0;
+    margin: 0.5rem;
+    padding: 1rem;
+
+}
