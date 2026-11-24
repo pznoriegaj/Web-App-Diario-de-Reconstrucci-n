@@ -1,16 +1,29 @@
 :root {
-    --color-principal: #05020c;
-    --color-fondo: #15565B;/*se cambia el color de fondo a un tono mas calido y agradable para la vista, se puede cambiar a cualquier otro color sin necesidad de modificar el codigo, solo cambiando el valor de la variable*/
-    --color-texto: #13110f;
-    --color-blanco: #ffffff;
+    --color-principal: #2A7B7E; /*se cambia el color principal a un tono mas calido y agradable para la vista, se puede cambiar a cualquier otro color sin necesidad de modificar el codigo, solo cambiando el valor de la variable*/
+    --color-fondo: #16383b;/*se cambia el color de fondo a un tono mas calido y agradable para la vista, se puede cambiar a cualquier otro color sin necesidad de modificar el codigo, solo cambiando el valor de la variable*/
+    --color-texto: #f4ecd8;
+    --color-blanco: #f4ecd8;
+
+    /*Variables nuevas para el efecto papel*/
+    --papel-crema: #F4ECD8;
+    --papel-borde: #E4D7B9;
+    --tinta-cafe: #2b2118;
+    --linea-cuaderno: rgba(42, 123, 126, 0.18);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 body {
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    font-family: 'Playfair Display', serif; /*se cambia fuente por una de google fontd para darle un mejor diseño*/
+    font-family: 'Playfair Display', serif;
     margin: 0%;
-    padding: 0%;
+    padding: 0;
+    min-height: 100vh;
 }
 
 h1 {
@@ -19,39 +32,99 @@ h1 {
     padding: 1rem;
 }
 
+h2,
+h3 {
+    line-height: 1.2;
+}
+
 main {
     margin: 0 auto;
     max-width: 600px;
     padding: 1rem;
 }
 
-button{
+#sidebar {
+    width: min(100%, 700px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+#sidebar > button {
     background-color: var(--color-principal);
     color: var(--color-blanco);
     padding: 0.5rem 1rem;
     border: none;
-} 
-
-#historial p{
-    background-color:#f0f0f0; /*el color de fondo se puede cambiar a la preferencia del usuario sin necesidad de var() ya que este se usa unicamente para las variables*/
-    padding: 1rem;
-    margin: 0.5rem;
-    
+    border-radius: 8px;
+    margin: 0.25rem;
+    cursor: pointer;
 }
 
-textarea { /*se agrega textarea para poder escribir en el, se modifica el tamaño de la caja para mejor visualización en la pagina / app*/
-    width: 100%; 
+#sidebar > button:hover,
+#sidebar > button:focus-visible {
+    filter: brightness(1.12);
+}
+
+#sidebar > button:focus-visible {
+    outline: 3px solid var(--papel-borde);
+    outline-offset: 2px;
+}
+
+#historial p {
+    background-color: var(--papel-crema);
+    color: var(--tinta-cafe);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+#historial small {
+    display: block;
+    margin: 0 0.5rem 0.25rem;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     height: 150px;
-    padding: 1rem; /*Para hacer limpieza en el codigo solamenete se aplica localStorage.clear() en la consola del navegador, esto eliminara todas las entradas guardadas en el localStorage, ten cuidado al usarlo ya que no se podran recuperar las entradas eliminadas.*/
+    padding: 1rem;
+    resize: vertical;
+    border: 1px solid var(--papel-borde);
+    border-radius: 8px;
+    font: inherit;
+}
+
+.entrada {
+    margin: 1rem 0;
+}
+
+.entrada button,
+#reto-diario button {
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0.5rem 0;
 }
 
 .btn-eliminar {
-    background-color: #4E8EA2;
-    color: var(--color-blanco);
+    background-color: var(--papel-borde);
+    color: var(--tinta-cafe);
     padding: 0.5rem 1rem;
-    margin: 0.5rem; /*se agrega un margen para separar el boton de eliminar de las entradas del historial, esto mejora la apariencia y usabilidad de la pagina / app*/
+    margin: 0.5rem;
     border: none;
-    border-radius: 8px; /*se agrega un borde redondeado al boton de eliminar para darle un mejor diseño y apariencia, esto hace que el boton se vea mas amigable y moderno*/
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .oculto {
@@ -59,8 +132,39 @@ textarea { /*se agrega textarea para poder escribir en el, se modifica el tamañ
 }
 
 #retos-didacticos li {
-    background-color: #f0f0f0;
+    background-color: var(--papel-crema);
+    color: var(--tinta-cafe);
+    border-radius: 8px;
     margin: 0.5rem;
     padding: 1rem;
+    list-style-position: inside;
+}
 
+#retos-didacticos img,
+#retos-didacticos iframe {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-top: 0.75rem;
+    border: 0;
+}
+
+#retos-didacticos iframe {
+    aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 600px) {
+    #sidebar {
+        padding: 0.75rem;
+    }
+
+    #sidebar > button {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+
+    h1 {
+        padding: 1rem 0;
+    }
 }
